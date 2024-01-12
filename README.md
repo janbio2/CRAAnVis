@@ -6,8 +6,7 @@
 # CRISPR Array Ancestry Visualization (CRAAnVis)
 Visualization tool for SpacerPlacer output.
 
-
-![small GUI overview](https://github.com/janbio2/test4/blob/main/images/g_502_c_title.png)
+![small GUI overview](https://github.com/janbio2/CRAAnVis/blob/release/images/g_502_c_title.png)
 
 
 ## Contents:
@@ -113,7 +112,7 @@ in the array.
 
 
 
-![visualization in single color mode](https://github.com/janbio2/test4/blob/main/images/single_color_mode.png)
+![visualization in single color mode](https://github.com/janbio2/CRAAnVis/blob/release/images/single_color_mode.png)
 
 
 
@@ -126,14 +125,14 @@ The *InnerOuter Two Color Event Split* option displays colors
  in an inner-outer fashion inside the evolutionary events, similar to the spacers.
  To activate the *InnerOuter Two Color Event Split* option, select **Color -> InnerOuter Two Color Event Split**.
 
-![visualization in two color horizontal event split mode](https://github.com/janbio2/test4/blob/main/images/two_color_io.png)
+![visualization in two color horizontal event split mode](https://github.com/janbio2/CRAAnVis/blob/release/images/two_color_io.png)
 
 
 The *Horizontal Two Color Event Split* option displays 
 the colors stacked horizontally inside the evolutionary events. 
 To activate the *Horizontal Two Color Event Split* option, select **Color -> Horizontal Two Color Event Split**.
 
-![visualization in two color horizontal event split mode](https://github.com/janbio2/test4/blob/main/images/two_color_h.png)
+![visualization in two color horizontal event split mode](https://github.com/janbio2/CRAAnVis/blob/release/images/two_color_h.png)
 
 ### 4.6 Coloring Arrays by Spacer Frequency
 The color of the spacers in the CRISPR arrays can be set to reflect the frequency of 
@@ -142,7 +141,7 @@ select **Color -> Color by Metadata... ->
 Value Range of Spacer Frequency / Value Range of Spacer Frequency with Deletions**. 
 Legends for the frequency color coding are provided below the array visualization.
 
-![color by spacer frequency](https://github.com/janbio2/test4/blob/main/images/color_by_frequency.png)
+![color by spacer frequency](https://github.com/janbio2/CRAAnVis/blob/release/images/color_by_frequency.png)
 
 ### 4.7 Coloring Arrays by Metadata
 Adding a metadata file (see section 5.2) to the SpacerPlacer experiment expands the spacer tooltip information available 
@@ -157,7 +156,7 @@ To activate a metadata-based color map, select **Color -> Color by Metadata...**
 coloring option from the sub-menu. 
 CRAAnVis provides legends for activated metadata-based color maps below the array visualization.
 
-![color categorical by mock metadata](https://github.com/janbio2/test4/blob/main/images/color_by_metadata.png)
+![color categorical by mock metadata](https://github.com/janbio2/CRAAnVis/blob/release/images/color_by_metadata.png)
 
 ### 4.8 Manual Spacer Color Assignment
 CRAAnVis allows for manual color assignment of individual spacers. To manually assign a color to a spacer, 
@@ -165,12 +164,12 @@ right-click to open the spacer's context menu and select **Pick New Spacer Color
 and the selected color is assigned to the spacer. When the arrays are colored according to group membership in a 
 metadata category, this option is replaced by **Pick New Spacer Color for Group**, which works correspondingly.
 <div>
-    <img src="https://github.com/janbio2/test4/blob/main/images/manual_color.png" style="height: 200px; width: auto; display: inline-block;">
-    <img src="https://github.com/janbio2/test4/blob/main/images/manual_color2.png" style="height: 200px; width: auto; display: inline-block;">
+    <img src="https://github.com/janbio2/CRAAnVis/blob/release/images/manual_color.png" style="height: 200px; width: auto; display: inline-block;">
+    <img src="https://github.com/janbio2/CRAAnVis/blob/release/images/manual_color2.png" style="height: 200px; width: auto; display: inline-block;">
 </div>
 Color picking.
 
-![changed group color](https://github.com/janbio2/test4/blob/main/images/new_group_color.png)
+![changed group color](https://github.com/janbio2/CRAAnVis/blob/release/images/new_group_color.png)
 
 ### 4.9 Importing and Exporting Color Maps
 A current color map can be exported to a CSV file by selecting **Color -> Save Current Color Map to .csv**. 
@@ -191,7 +190,7 @@ To highlight all spacers that are hypothesized to have only been gained in the a
 of a single array in the experiment, select **Arrays -> Highlight Singular Leaf Acquisitions**.
 When highlighting the duplicates or the singular leaf acquisitions, other highlights are removed.
 
-![highlighting singular leaf acquisitions](https://github.com/janbio2/test4/blob/main/images/highlighting.gif)
+![highlighting singular leaf acquisitions](https://github.com/janbio2/CRAAnVis/blob/release/images/highlighting.gif)
 
 
 ### 4.11 Static and Dynamic Highlighting
@@ -201,7 +200,7 @@ evolutionary events can be switched between static and dynamic highlighting. To 
 To activate dynamic highlighting, select
 **Colors -> Blinking Highlights**. All highlights are set static when exporting the visualization as a .PNG or .PDF file.
 
-![highlighting singular leaf acquisitions static](https://github.com/janbio2/test4/blob/main/images/highlighting.png)
+![highlighting singular leaf acquisitions static](https://github.com/janbio2/CRAAnVis/blob/release/images/highlighting.png)
 
 ### 4.12 Rearranging the Phylogenetic Tree and the Arrays
 Rearranging the phylogenetic tree and the arrays is possible by swapping the order child nodes at internal nodes.
@@ -209,7 +208,7 @@ To swap the order of child nodes at an internal node, right-click the node to op
 **Swap Child Nodes**. The order of the child nodes is swapped and the visualization is updated accordingly, with the
 arrays being aligned to their corresponding leaf nodes.
 
-![swapping tree nodes](https://github.com/janbio2/test4/blob/main/images/swap_nodes.gif)
+![swapping tree nodes](https://github.com/janbio2/CRAAnVis/blob/release/images/swap_nodes.gif)
 
 
 ### 4.13 Resizing the Phylogenetic Tree
@@ -219,7 +218,7 @@ To set the tree length as short as possible while maintaining visibility of the 
 branch lengths, select **Tree -> Set Tiny Tree Scale**. To reset the tree length to the default length, select
 **Tree -> Reset Tree Scale**.
 
-![resize tree](https://github.com/janbio2/test4/blob/main/images/tree_resize.gif)
+![resize tree](https://github.com/janbio2/CRAAnVis/blob/release/images/tree_resize.gif)
 
 ### 4.14 Pooling of Evolutionary Events
 To improve information density of the visualization, evolutionary events in the tree can be pooled. Pooling aggregates
@@ -227,10 +226,10 @@ several evolutionary event items into a single pool item when three or more evol
 names constituting a consecutive incremental number sequence are adjacent to each other in the tree. To activate pooling,
 select **Tree -> Pool Evolutionary Events**. 
 
-![visualization with unpooled events](https://github.com/janbio2/test4/blob/main/images/unpooled_events.png)
+![visualization with unpooled events](https://github.com/janbio2/CRAAnVis/blob/release/images/unpooled_events.png)
 Visualization with unpooled events 
 
-![visualization with pooled events](https://github.com/janbio2/test4/blob/main/images/pooled.png)
+![visualization with pooled events](https://github.com/janbio2/CRAAnVis/blob/release/images/pooled.png)
 Visualization with pooled events
 
 ### 4.15 Showing hypothesized Ancestral Array Compositions
@@ -238,7 +237,7 @@ To show the hypothesized composition of the ancestral arrays at any internal nod
 open the node's context menu and select **Show Set of Spacers at Node**. Repeat the procedure to hide the hypothesized
 ancestral array composition.
 
-![showing hypthesized ancestral array composition](https://github.com/janbio2/test4/blob/main/images/show_inner.png)
+![showing hypthesized ancestral array composition](https://github.com/janbio2/CRAAnVis/blob/release/images/show_inner.png)
 
 ### 4.16 Adjusting the Array Header
 The array header shows in its upper part the full set of spacers available in all arrays with the names that SpacerPlacer assigned to them.
@@ -248,7 +247,7 @@ To hide the display of the original names, deselect **Arrays -> Show Original Na
 To hide the display of the set of spacers with the names that SpacerPlacer assigned to them, deselect 
 **Arrays -> Show Template**.
 
-![adjusting the header](https://github.com/janbio2/test4/blob/main/images/adjust_header.gif)
+![adjusting the header](https://github.com/janbio2/CRAAnVis/blob/release/images/adjust_header.gif)
 
 
 ### 4.17 Collapsing Singular Array Parts
@@ -256,7 +255,7 @@ To improve the density of information in the visualization, spacers that are sin
 and superposed instead of being arranged next to each other. To collapse singular leaf acquisitions, select
 **Arrays -> Collapse Singular Leaf Acquisitions**. To expand them again repeat the procedure.
 
-![collapsing singular leaf acquisitions](https://github.com/janbio2/test4/blob/main/images/collapsing_array.gif)
+![collapsing singular leaf acquisitions](https://github.com/janbio2/CRAAnVis/blob/release/images/collapsing_array.gif)
 
 ### 4.18 Non-GUI Usage as a Python Module
 CRAAnVis can also be used as a Python module to visualize SpacerPlacer experiments.
