@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <widget class="QMenu" name="menuOpen_Recent">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="title">
+      <string>Open Recent</string>
+     </property>
+     <addaction name="actiontest"/>
+    </widget>
+    <addaction name="actionOpen_SpacerPlacer_Experiment"/>
+    <addaction name="menuOpen_Recent"/>
+    <addaction name="separator"/>
+    <addaction name="actionSettings"/>
+    <addaction name="separator"/>
+    <addaction name="actionExport_as_Pdf"/>
+    <addaction name="actionExport_as_Png"/>
+    <addaction name="separator"/>
+    <addaction name="actionClear"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="actionCopy_Image"/>
+    <addaction name="separator"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <addaction name="actionZoom_In"/>
+    <addaction name="actionZoom_Out"/>
+    <addaction name="separator"/>
+   </widget>
+   <widget class="QMenu" name="menuWindow">
+    <property name="title">
+     <string>Window</string>
+    </property>
+    <addaction name="actionMinimize"/>
+    <addaction name="actionZoom"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout"/>
+   </widget>
+   <widget class="QMenu" name="menuTree">
+    <property name="title">
+     <string>Tree</string>
+    </property>
+    <addaction name="actionPool_Evolutionary_Events"/>
+    <addaction name="separator"/>
+    <addaction name="actionExtend_Tree_Length"/>
+    <addaction name="actionReduce_Tree_Length"/>
+    <addaction name="separator"/>
+    <addaction name="actionSet_Tiny_Tree_Scale"/>
+    <addaction name="actionReset_Tree_Scale"/>
+   </widget>
+   <widget class="QMenu" name="menuArrays">
+    <property name="title">
+     <string>Arrays</string>
+    </property>
+    <addaction name="actionShow_Template"/>
+    <addaction name="actionShow_Original_Names"/>
+    <addaction name="actionShow_Tags_for_Template_and_Org_Names"/>
+    <addaction name="separator"/>
+    <addaction name="actionCollapse_Singular_Leaf_Acquisitions"/>
+    <addaction name="actionHighlight_Singular_Leaf_Acquisions"/>
+    <addaction name="separator"/>
+    <addaction name="actionHighlight_Spacers_with_Duplicates"/>
+   </widget>
+   <widget class="QMenu" name="menuColors">
+    <property name="title">
+     <string>Colors</string>
+    </property>
+    <widget class="QMenu" name="menuColor_By_Metadata">
+     <property name="title">
+      <string>Color By Metadata...</string>
+     </property>
+     <addaction name="actiontest_4"/>
+    </widget>
+    <widget class="QMenu" name="menuColor_By_Imported_Color_Map">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="title">
+      <string>Color By Imported Color Map</string>
+     </property>
+     <addaction name="actionNone"/>
+    </widget>
+    <addaction name="menuColor_By_Metadata"/>
+    <addaction name="menuColor_By_Imported_Color_Map"/>
+    <addaction name="actionSingle_Color_Mode"/>
+    <addaction name="actionTwo_Color_Mode"/>
+    <addaction name="separator"/>
+    <addaction name="actionSplit_Event_Colors_Horizontal"/>
+    <addaction name="actionSplit_Event_Colors_InnerOuter"/>
+    <addaction name="separator"/>
+    <addaction name="actionExport_Current_Color_Map_as_csv"/>
+    <addaction name="actionSave_Color_Map_Template_as_csv"/>
+    <addaction name="actionImport_Color_Map"/>
+    <addaction name="separator"/>
+    <addaction name="actionBlinking_Highlights"/>
+    <addaction name="actionStatic_Highlights"/>
+    <addaction name="separator"/>
+    <addaction name="actionShow_Spacerfrequency_at_Distance"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuTree"/>
+   <addaction name="menuArrays"/>
+   <addaction name="menuColors"/>
+   <addaction name="menuView"/>
+   <addaction name="menuWindow"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <action name="actionExport_as_Pdf">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Export as Pdf</string>
+   </property>
+  </action>
+  <action name="actionExport_as_Png">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Export as Png</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Quit</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionUndo">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Undo</string>
+   </property>
+  </action>
+  <action name="actionRedo">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Redo</string>
+   </property>
+  </action>
+  <action name="actionCopy_Image">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Copy Image</string>
+   </property>
+  </action>
+  <action name="actionClear">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Clear</string>
+   </property>
+  </action>
+  <action name="actionZoom_In">
+   <property name="text">
+    <string>Zoom In</string>
+   </property>
+  </action>
+  <action name="actionZoom_Out">
+   <property name="text">
+    <string>Zoom Out</string>
+   </property>
+  </action>
+  <action name="actionShow_Array">
+   <property name="text">
+    <string>Show Array</string>
+   </property>
+  </action>
+  <action name="actionShow_Tree">
+   <property name="text">
+    <string>Show Tree</string>
+   </property>
+  </action>
+  <action name="actionsmyck">
+   <property name="text">
+    <string>smyck</string>
+   </property>
+  </action>
+  <action name="action246">
+   <property name="text">
+    <string>246</string>
+   </property>
+  </action>
+  <action name="actionSingle_Color_Mode">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Single Color Mode</string>
+   </property>
+  </action>
+  <action name="actionTwo_Color_Mode">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Two Color Mode</string>
+   </property>
+  </action>
+  <action name="actionMinimize">
+   <property name="text">
+    <string>Minimize</string>
+   </property>
+  </action>
+  <action name="actionZoom">
+   <property name="text">
+    <string>Zoom</string>
+   </property>
+  </action>
+  <action name="actionSettings">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Settings</string>
+   </property>
+  </action>
+  <action name="actiontest">
+   <property name="text">
+    <string>test</string>
+   </property>
+  </action>
+  <action name="actiontest_2">
+   <property name="text">
+    <string>test</string>
+   </property>
+  </action>
+  <action name="actionshow_tree">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Show Tree</string>
+   </property>
+  </action>
+  <action name="actionShow_Spacers">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Show Spacers</string>
+   </property>
+  </action>
+  <action name="actionShow_Template">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Show Template</string>
+   </property>
+  </action>
+  <action name="actionShow_Original_Names">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Show Original Names</string>
+   </property>
+  </action>
+  <action name="actionShow_Edge_Length">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Show Edge Length</string>
+   </property>
+  </action>
+  <action name="actionShow_Evolutionary_Events">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Show Evolutionary Events</string>
+   </property>
+  </action>
+  <action name="actionPool_Evolutionary_Events">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Pool Evolutionary Events</string>
+   </property>
+  </action>
+  <action name="actionShow_Short_Tree">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Show Short Tree</string>
+   </property>
+  </action>
+  <action name="actiontest_3">
+   <property name="text">
+    <string>test</string>
+   </property>
+  </action>
+  <action name="actionHorizontal_Color_Split">
+   <property name="text">
+    <string>Horizontal Color Split</string>
+   </property>
+  </action>
+  <action name="actionInner_Outer_Color_Split">
+   <property name="text">
+    <string>Inner-Outer Color Split</string>
+   </property>
+  </action>
+  <action name="actionSplit_Event_Colors_Horizontal">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Horizontal Two Color Event Split</string>
+   </property>
+  </action>
+  <action name="actionSplit_Event_Colors_InnerOuter">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>InnerOuter Two Color Event Split</string>
+   </property>
+  </action>
+  <action name="actiontest_4">
+   <property name="text">
+    <string>test</string>
+   </property>
+  </action>
+  <action name="actionShow_Spacerfrequency_at_Distance">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Show Spacerfrequency at Distance</string>
+   </property>
+  </action>
+  <action name="actionShow_Original_Tree">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Show Original Tree</string>
+   </property>
+  </action>
+  <action name="actionShow_Root_Events_as_Array">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Show Root Events as Array</string>
+   </property>
+  </action>
+  <action name="actionCollapse_Leaf_Acquisitions_in_Array">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Collapse Leaf Acquisitions in Array</string>
+   </property>
+  </action>
+  <action name="actionExtend_Tree_Length">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Extend Tree Length</string>
+   </property>
+  </action>
+  <action name="actionReduce_Tree_Length">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Reduce Tree Length</string>
+   </property>
+  </action>
+  <action name="actionExport_Current_Color_Map_as_csv">
+   <property name="text">
+    <string>Save Current Color Map to .csv</string>
+   </property>
+  </action>
+  <action name="actionSave_Color_Map_Template_as_csv">
+   <property name="text">
+    <string>Save Color Map Template to .csv</string>
+   </property>
+  </action>
+  <action name="actionImport_Color_Map">
+   <property name="text">
+    <string>Import Color Map</string>
+   </property>
+  </action>
+  <action name="actionOpen_SpacerPlacer_Experiment">
+   <property name="text">
+    <string>Open SpacerPlacer Experiment...</string>
+   </property>
+  </action>
+  <action name="actionNone">
+   <property name="text">
+    <string>None</string>
+   </property>
+  </action>
+  <action name="actionCollapse_Singular_Leaf_Acquisitions">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Collapse Singular Leaf Acquisitions</string>
+   </property>
+  </action>
+  <action name="actionShow_Tags_for_Template_and_Org_Names">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Show Tags for Template and Org Names</string>
+   </property>
+  </action>
+  <action name="actionHighlight_Singular_Leaf_Acquisions">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Highlight Singular Leaf Acquisions</string>
+   </property>
+  </action>
+  <action name="actionBlinking_Highlights">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Blinking Highlights</string>
+   </property>
+  </action>
+  <action name="actionStatic_Highlights">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Static Black and White Highlights</string>
+   </property>
+  </action>
+  <action name="actionHighlight_Spacers_with_Duplicates">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Highlight Spacers with Duplicates</string>
+   </property>
+  </action>
+  <action name="actionSet_Tiny_Tree_Scale">
+   <property name="text">
+    <string>Set Tiny Tree Scale</string>
+   </property>
+  </action>
+  <action name="actionReset_Tree_Scale">
+   <property name="text">
+    <string>Reset Tree Scale</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
