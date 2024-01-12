@@ -1,11 +1,12 @@
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![made-with-PyQt6](https://img.shields.io/badge/Made%20with-PyQt6-2CDE85.svg)](https://www.riverbankcomputing.com/software/pyqt/intro)
-<img src="https://github.com/janbio2/CRAAnVis/blob/release/images/icon.png" width="100px">
 
 
 
-# CRISPR Array Ancestry Visualization (CRAAnVis)Visualization tool for SpacerPlacer output.
+
+<img src="https://github.com/janbio2/CRAAnVis/blob/release/images/icon.png" width="100px"> # CRISPR Array Ancestry Visualization (CRAAnVis)
+Visualization tool for SpacerPlacer output.
 
 ![small GUI overview](https://github.com/janbio2/CRAAnVis/blob/release/images/g_502_c_title.png)
 
