@@ -4,7 +4,7 @@
 
 
 
-# CRISPR Array Ancestry Visualization (CRAAnVis) <img src="https://github.com/janbio2/CRAAnVis/blob/release/images/icon.png" width="100px">
+# CRISPR Array Ancestry Visualization (CRAAnVis)<br><img src="https://github.com/janbio2/CRAAnVis/blob/release/images/icon.png" width="100px">
 Visualization tool for SpacerPlacer output.
 
 ![small GUI overview](https://github.com/janbio2/CRAAnVis/blob/release/images/g_502_c_title.png)
