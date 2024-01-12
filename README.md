@@ -28,7 +28,7 @@ CRAAnVis/
 │   │   ├── arrays.py                 # manage CRISPR array data model
 │   │   ├── app_config.py             # tool configurations and settings
 │   │   ├── file_reader.py            # reads and deserializes input data
-│   │   ├── helper_functions.py       # utility functions
+│   │   ├── helper_functions.py       # helper functions
 │   │   ├── model_container.py        # managing all combined model data
 │   │   ├── newick_parser.py          # parses phylogenetic trees adapted from ete toolkit
 │   │   └── tree.py                   # manage the tree data model
@@ -162,7 +162,7 @@ CRAAnVis provides legends for activated metadata-based color maps below the arra
 CRAAnVis allows for manual color assignment of individual spacers. To manually assign a color to a spacer, 
 right-click to open the spacer's context menu and select **Pick New Spacer Color**. A native color selection dialog opens, 
 and the selected color is assigned to the spacer. When the arrays are colored according to group membership in a 
-metadata category, this option is replaced by **Pick New Spacer Color for Group**, which works correspondingly.
+metadata category, this option is replaced by **Pick New Group Color**, which works correspondingly.
 <div>
     <img src="https://github.com/janbio2/CRAAnVis/blob/release/images/manual_color.png" style="height: 200px; width: auto; display: inline-block;">
     <img src="https://github.com/janbio2/CRAAnVis/blob/release/images/manual_color2.png" style="height: 200px; width: auto; display: inline-block;">
