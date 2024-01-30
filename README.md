@@ -68,7 +68,7 @@ CRAAnVis/
 
 ### 3.1 Download the repository and change into the directory
 ```bash
-git clone ADD LINK HERE
+git clone https://github.com/janbio2/CRAAnVis.git
 cd CRAAnVis
 ```
 ### 3.2 Create a virtual environment, activate it and install dependencies
