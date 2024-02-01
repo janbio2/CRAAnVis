@@ -1121,6 +1121,9 @@ def produce_event_items(event_list, event_type, app_config, events_dict):
     elif event_type == "losses":
         event_items = produce_loss_items(event_list, app_config)
     else:
+        # if len(event_list) > 0:
+        #     print(f" event_type: {event_type}")
+        #     print(f" event_list: {event_list}")
         event_items = produce_other_items(event_list, app_config, name_dict[event_type], color_dict[event_type])
 
     return event_items
@@ -1163,9 +1166,19 @@ def produce_pooled_items(event_list, event_items, event_type, app_config, ix=Non
 def produce_gain_items(event_list, app_config, events_dict):
     gain_items = []
     for sp_name in event_list:
-        if (sp_name in events_dict["duplications"]) or \
-                (sp_name in events_dict["contradictions"]) or \
-                (sp_name in events_dict["double_gains"]):
+        if sp_name in events_dict["duplications"]:
+            continue
+        if sp_name in events_dict["contradictions"]:
+            continue
+        if sp_name in events_dict["double_gains"]:
+            continue
+        if sp_name in events_dict["independent_gains"]:
+            continue
+        if sp_name in events_dict["reacquisitions"]:
+            continue
+        if sp_name in events_dict["dups"]:
+            continue
+        if sp_name in events_dict["rearrangements"]:
             continue
         col1, col2, color_group = app_config.color_manager.get_new_col_info(
             str(sp_name))

@@ -15,7 +15,7 @@ def print_to_png(view, file_path=None, clipboard=False):
 
     if file_path:
         print("file_path:", file_path)
-        file_name = view.app_config.file_name + ".png"
+        file_name = view.app_config.file_name + "_cv.png"
         file_path = os.path.join(file_path, file_name)
 
     elif not clipboard:
@@ -30,7 +30,7 @@ def print_to_png(view, file_path=None, clipboard=False):
 
         # get file path
         file_path = get_save_png_path(view)
-        if file_path == ".png":
+        if file_path == "_cv.png":
             return
 
     # setup view
@@ -104,7 +104,7 @@ def print_to_pdf(view, file_path=None):
         return
     if file_path:
         print("file_path:", file_path)
-        file_name = view.app_config.file_name + ".pdf"
+        file_name = view.app_config.file_name + "_cv.pdf"
         file_path = os.path.join(file_path, file_name)
     elif file_path is None:
         file_path = get_save_pdf_path(view)

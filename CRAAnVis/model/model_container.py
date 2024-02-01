@@ -44,7 +44,8 @@ class ModelContainer:
                 'duplications': 'Duplications',
                 'rearrangements': 'Rearrangements',
                 'double_gains': 'Reacquisition',
-                'independent_gains': 'Ind. acquisition'
+                'independent_gains': 'Ind. acquisition',
+                'dups': 'Other Type of Dup. Insertion'
             }
 
             self.item_types_in_tree = set()

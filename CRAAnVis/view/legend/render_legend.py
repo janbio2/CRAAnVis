@@ -334,7 +334,8 @@ def prod_tr_legend_items(app_config, itemtypes_in_tree):
         ("Duplications", TwoColorHexagonItem, "blue"),
         ("Rearrangements", TwoColorHexagonItem, "purple"),
         ("Reacquisition", TwoColorHexagonItem, "turquoise"),
-        ("Ind. acquisition", TwoColorHexagonItem, "brown")
+        ("Ind. acquisition", TwoColorHexagonItem, "brown"),
+        ("Other Type of Dup. Insertion", TwoColorHexagonItem, "gray")
     ]
 
     pos_x = 0

@@ -461,7 +461,12 @@ class TreeScalingContainer(QObject):
                                                     self.array_length)
         self.x_scale_factor = self.best_x_scale_factor
 
-        self.min_scale = get_maximal_scaling_without_size_increase(self.leaf_dist_ext_dict,
+        if self.min_distance == 0:
+            min_above_zero = find_min_above_zero_distance(self.tree_view_model)
+            self.min_scale = get_maximal_scaling_without_size_increase(self.leaf_dist_ext_dict,
+                                                                       app_config.min_leaf_dist / min_above_zero)
+        else:
+            self.min_scale = get_maximal_scaling_without_size_increase(self.leaf_dist_ext_dict,
                                                                    app_config.min_leaf_dist / self.min_distance)
 
         self.max_y = None
@@ -509,6 +514,12 @@ def find_min_distance(node: TreeViewNode, min_dist=float('inf')):
         min_dist = min(min_dist, find_min_distance(c, c.distance))
     return min_dist
 
+def find_min_above_zero_distance(node: TreeViewNode, min_dist=float('inf')):
+    for c in node.c:
+        if c.distance > 0:
+            min_dist = min(min_dist, find_min_above_zero_distance(c, c.distance))
+    return min_dist
+
 
 def get_max_distance_sum(leaf_dist_ext_dict):
     max_dist_sum = 0
@@ -539,7 +550,10 @@ def optimize_scaling(leaf_dist_ext_dict, min_dist, app_config: AppConfig, array_
     tree_sizes = []
     extension_counts = []
 
-    x_start = app_config.min_leaf_dist / min_dist
+    if min_dist == 0:
+        x_start = 0
+    else:
+        x_start = app_config.min_leaf_dist / min_dist
     x_end = app_config.max_array_tree_ratio * array_length / get_max_distance_sum(leaf_dist_ext_dict)
     n_points = int(app_config.scaling_optimization_rounds / 2)
     x_grid = [x_start + i * (x_end - x_start) / (n_points - 1) for i in range(n_points)]
@@ -561,6 +575,8 @@ def optimize_scaling(leaf_dist_ext_dict, min_dist, app_config: AppConfig, array_
 
         return best_x
 
+    if x_start < 1:
+        x_start = 1
     log_grid = [math.log2(x_start) + i * (math.log2(x_end) - math.log2(x_start)) /
                 (int(app_config.scaling_optimization_rounds / 2) - 1) for i in
                 range(int(app_config.scaling_optimization_rounds / 2))]
@@ -808,7 +824,13 @@ def pooled_ext(app_config, node):
     events_exist_top_b = False
     events_exist_bottom_b = False
     for event, e_list in node.events.items():
-        if event == "duplications" or event == "contradictions" or event == "double_gains":
+        if (event == "duplications" or
+                event == "contradictions" or
+                event == "double_gains" or
+                event == "independent_gains" or
+                event == "reaquisitions" or
+                event == "dups" or
+                event == "rearrangements"):
             continue
         if app_config.event_positions[event] == "top-branch":
             ci, cp = count_pooled(e_list)
@@ -838,7 +860,13 @@ def non_pooled_ext(app_config, node):
     events_exist_top_b = False
     events_exist_bottom_b = False
     for event, e_list in node.events.items():
-        if event == "duplications" or event == "contradictions" or event == "double_gains":
+        if (event == "duplications" or
+                event == "contradictions" or
+                event == "double_gains" or
+                event == "independent_gains" or
+                event == "reaquisitions" or
+                event == "dups" or
+                event == "rearrangements"):
             continue
         if app_config.event_positions[event] == "top-branch":
             height_above_branch += count_items(e_list) * app_config.event_width

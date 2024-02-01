@@ -4,8 +4,8 @@ from model.app_config import AppConfig
 from view.view import CrAAnVisView
 
 
-class CrAAnVis:
-    """ Main class of CrAAnVis."""
+class CRAAnVis:
+    """ Main class of CRAAnVis."""
 
     def __init__(self, headless_mode=False):
         self.app_config = AppConfig()
@@ -24,6 +24,6 @@ class CrAAnVis:
             self.app.quit()
 
 if __name__ == '__main__':
-    cv = CrAAnVis()
+    cv = CRAAnVis()
 
 

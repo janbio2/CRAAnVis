@@ -30,6 +30,8 @@ class TreeNode:
             'rearrangements': [],
             'double_gains': [],
             'independent_gains': [],
+            'reacquisitions': [],
+            'dups': []
         }
 
     def parse_newick(self, newick: str):
@@ -71,21 +73,42 @@ class TreeNode:
 
     def parse_evolutionary_events(self, data):
         """get evolutionary events information and assign to nodes from data"""
+
+
+
+
         for node in self.traverse():
             if node.name in data['rec_gains_losses']['rec_gains'].keys():
                 node.events['gains'] = data['rec_gains_losses']['rec_gains'][node.name]
             if node.name in data['rec_gains_losses']['rec_losses'].keys():
                 node.events['losses'] = data['rec_gains_losses']['rec_losses'][node.name]
+
             if node.name in data['other_events']['rec_contra_dict'].keys():
                 node.events['contradictions'] = data['other_events']['rec_contra_dict'][node.name]
             if node.name in data['other_events']['rec_duplications_dict'].keys():
                 node.events['duplications'] = data['other_events']['rec_duplications_dict'][node.name]
             if node.name in data['other_events']['rec_rearrangements_dict'].keys():
                 node.events['rearrangements'] = data['other_events']['rec_rearrangements_dict'][node.name]
-            if node.name in data['other_events']['rec_double_gains_dict'].keys():
-                node.events['double_gains'] = data['other_events']['rec_double_gains_dict'][node.name]
-            if node.name in data['other_events']['rec_default_or_indep_gains_dict'].keys():
-                node.events['independent_gains'] = data['other_events']['rec_default_or_indep_gains_dict'][node.name]
+
+            # decide which SpacerPlacer output data version is available
+            old_categories = ["rec_double_gains_dict", "rec_default_or_indep_gains_dict"]
+            new_categories = ["rec_reacquisition_dict", "rec_indep_gain_dict", "rec_other_dup_events_dict"]
+
+            if all(category in data['other_events'].keys() for category in old_categories):
+                if node.name in data['other_events']['rec_double_gains_dict'].keys():
+                    node.events['double_gains'] = data['other_events']['rec_double_gains_dict'][node.name]
+                if node.name in data['other_events']['rec_default_or_indep_gains_dict'].keys():
+                    node.events['independent_gains'] = data['other_events']['rec_default_or_indep_gains_dict'][node.name]
+
+            if all(category in data['other_events'].keys() for category in new_categories):
+                if node.name in data['other_events']['rec_reacquisition_dict'].keys():
+                    node.events[('reacquisitions')] = data['other_events']['rec_reacquisition_dict'][node.name]
+                if node.name in data['other_events']['rec_indep_gain_dict'].keys():
+                    node.events['independent_gains'] = data['other_events']['rec_indep_gain_dict'][node.name]
+                if node.name in data['other_events']['rec_other_dup_events_dict'].keys():
+                    node.events['dups'] = data['other_events']['rec_other_dup_events_dict'][node.name]
+
+
 
     def is_leaf(self):
         """Check if node is leaf"""

@@ -115,21 +115,27 @@ class AppConfig:
             "transfers": "top-branch",
             "rearrangements": "top-branch",
             "double_gains": "top-branch",
-            "independent_gains": "top-branch"
+            "independent_gains": "top-branch",
+            "dups": "top-branch",
+            "reacquisitions": "top-branch"
         }
         self.event_color_dict = {
             "contradictions": QColor("orange"),
             "duplications": QColor("blue"),
             "rearrangements": QColor("purple"),
             "double_gains": QColor("turquoise"),
-            "independent_gains": QColor("brown")
+            "independent_gains": QColor("brown"),
+            "dups": QColor("gray"),
+            "reacquisitions": QColor("green"),
         }
         self.event_name_dict = {
             "contradictions": "Contradiction",
             "duplications": "Duplication",
             "rearrangements": "Rearrangement",
             "double_gains": "Double Gain",
-            "independent_gains": "Independent Gain"
+            "independent_gains": "Independent Gain",
+            "dups": "Other Type of Dup. Insertion",
+            "reacquisitions": "Reacquisition"
         }
         # Event Pooling
         self.event_pooling = True

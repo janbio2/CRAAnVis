@@ -11,6 +11,10 @@ def read_newick(file_path) -> str:
     try:
         with open(file_path, 'r') as file:
             newick_tree = file.read()
+            if newick_tree.endswith('"'):
+                newick_tree = newick_tree[:-1]
+            if newick_tree.startswith('"'):
+                newick_tree = newick_tree[1:]
         return newick_tree
     except FileNotFoundError:
         print("Newick tree file not found.")
@@ -78,6 +82,7 @@ def read_other_events(file_path) -> Dict[str, Dict[str, List[str]]]:
     Read other_events.json file.
     :return: dict representing other_events
     """
+    print(file_path)
     try:
         with open(file_path, 'r') as file:
             other_events = json.load(file)
