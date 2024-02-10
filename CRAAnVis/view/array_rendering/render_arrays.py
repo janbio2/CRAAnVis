@@ -1,6 +1,6 @@
 from PyQt6.QtCore import QRectF, Qt, QSettings, QTimer
-from PyQt6.QtGui import QColor, QPen, QFont, QPainter, QAction, QBrush
-from PyQt6.QtWidgets import QGraphicsRectItem, QGraphicsTextItem, QMenu, QGraphicsItem, QGraphicsSimpleTextItem
+from PyQt6.QtGui import QColor, QPen, QPainter, QAction, QBrush
+from PyQt6.QtWidgets import QGraphicsRectItem, QMenu, QGraphicsItem, QGraphicsSimpleTextItem
 
 from model.arrays import get_node_by_name, gather_upstream_gains, gather_upstream_losses
 from model.helper_functions import adapt_font_to_width

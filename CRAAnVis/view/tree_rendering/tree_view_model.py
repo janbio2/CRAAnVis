@@ -577,6 +577,7 @@ def optimize_scaling(leaf_dist_ext_dict, min_dist, app_config: AppConfig, array_
 
     if x_start < 1:
         x_start = 1
+
     log_grid = [math.log2(x_start) + i * (math.log2(x_end) - math.log2(x_start)) /
                 (int(app_config.scaling_optimization_rounds / 2) - 1) for i in
                 range(int(app_config.scaling_optimization_rounds / 2))]
@@ -691,7 +692,7 @@ def find_new_x_range(x_values, tree_sizes, min_tree_size, max_tree_size):
     xend the first producing trees of size max_tree_size"""
 
     x_start = 0
-    x_end = 0
+    x_end = x_values[-1]
     for ix in range(len(x_values)):
         if tree_sizes[ix] >= min_tree_size:
             x_start = x_values[ix]

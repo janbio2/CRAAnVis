@@ -3,16 +3,15 @@ import itertools
 import math
 import random
 
-from PyQt6.QtCore import QObject, pyqtSignal, QPointF, QRectF
-from PyQt6.QtGui import QColor, QBrush, QPen, QLinearGradient, QFontMetrics, QFont
-from PyQt6.QtWidgets import QGraphicsRectItem, QGraphicsSimpleTextItem, QColorDialog
+from PyQt6.QtCore import QObject, pyqtSignal
+from PyQt6.QtGui import QColor
+from PyQt6.QtWidgets import QColorDialog
 
-from model.helper_functions import num_to_display_str
 from model.model_container import ModelContainer
 from view.array_rendering.render_arrays import SpacerItem
 from view.colors.color_schemes import (C_2, C_3, C_4, C_5, C_6, C_7, C_8, C_10, C_13, C_15, C_21, C_23, C_26, C_35,
                                        C_41, C_62, C_97, C_139, C_230, C_470, C_1232)
-from view.legend.render_legend import GradientLegendItem, prod_arr_legend_items
+from view.legend.render_legend import prod_arr_legend_items
 
 
 class ColorMapGenerator:

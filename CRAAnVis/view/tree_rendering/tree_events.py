@@ -1200,6 +1200,10 @@ def produce_gain_pools(event_items, pools, ixs, app_config):
     col = QColor("green")
     for i in range(len(pools)):
         curr_item_ixs = ixs[i]
+        # new spacerplacer outformat can produce a bug here
+        # print(f"curr_item_ixs: {curr_item_ixs}")
+        # print(f"event_items: {event_items}")
+        # print(f"len(event_items): {len(event_items)}")
         current_items = [event_items[ix] for ix in curr_item_ixs]
         pool_item = EllipsePoolItem(current_items, "Acquisition",
                                     0, 0, app_config.epool_width, app_config.event_height,

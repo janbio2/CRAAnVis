@@ -218,6 +218,7 @@ def restore_window_settings(window):
 
 def init_settings():
     settings = QSettings()
+    settings.setValue("app/current_file", None)
     if not settings.value("settings/exist"):
         restore_default_settings()
         print("Settings initialised.")
