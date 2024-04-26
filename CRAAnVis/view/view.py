@@ -166,7 +166,7 @@ class CrAAnVisView(QMainWindow, Ui_MainWindow):
         # File
         self.ui.actionExit.triggered.connect(self.close)
         self.ui.actionClear.triggered.connect(self.clear_toggled)
-        self.update_open_recent_menu_actions(self.ui.menuOpen_Recent, self.settings.value("app/recent_files"))
+        self.update_open_recent_menu_actions(self.ui.menuOpen_Recent, self.settings.value("app/recent_files", []))
         openIcon = self.style().standardIcon(QStyle.StandardPixmap.SP_DirOpenIcon)
         self.ui.actionOpen_SpacerPlacer_Experiment.setIcon(openIcon)
         self.ui.actionOpen_SpacerPlacer_Experiment.triggered.connect(lambda: self.load_new_data(None))
