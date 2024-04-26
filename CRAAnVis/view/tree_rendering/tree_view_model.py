@@ -728,8 +728,8 @@ def get_leaf_dist_ext(node, distances, extensions):
     distances.append(node.distance)
     extensions.append(node.extension_length)
 
-    # If it's a leaf, return its info
-    if node.cs == 0:  # Assuming node.c is the children list
+    # If it's a leaf, return its distances and extensions
+    if node.cs == 0:  # node cs is the number of children
         return {node.name: (distances.copy(), extensions.copy())}
 
     leaf_dict = {}

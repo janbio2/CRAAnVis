@@ -1,4 +1,4 @@
-from PyQt6.QtCore import Qt, QSettings
+from PyQt6.QtCore import Qt, QSettings, QByteArray, QPoint
 from PyQt6.QtGui import QFont, QPen, QColor
 
 from view.colors.colors import TreeSignalManager
@@ -210,9 +210,9 @@ def store_current_settings(window):
 
 def restore_window_settings(window):
     settings = QSettings()
-    window.restoreGeometry(settings.value("window/geometry"))
-    window.restoreState(settings.value("window/state"))
-    window.move(settings.value("window/window_position"))
+    window.restoreGeometry(settings.value("window/geometry", QByteArray()))
+    window.restoreState(settings.value("window/state", QByteArray()))
+    window.move(settings.value("window/window_position", QPoint(100,100)))
     settings.sync()
 
 
