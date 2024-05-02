@@ -1121,9 +1121,6 @@ def produce_event_items(event_list, event_type, app_config, events_dict):
     elif event_type == "losses":
         event_items = produce_loss_items(event_list, app_config)
     else:
-        # if len(event_list) > 0:
-        #     print(f" event_type: {event_type}")
-        #     print(f" event_list: {event_list}")
         event_items = produce_other_items(event_list, app_config, name_dict[event_type], color_dict[event_type])
 
     return event_items
@@ -1201,9 +1198,6 @@ def produce_gain_pools(event_items, pools, ixs, app_config):
     for i in range(len(pools)):
         curr_item_ixs = ixs[i]
         # new spacerplacer outformat can produce a bug here
-        # print(f"curr_item_ixs: {curr_item_ixs}")
-        # print(f"event_items: {event_items}")
-        # print(f"len(event_items): {len(event_items)}")
         current_items = [event_items[ix] for ix in curr_item_ixs]
         pool_item = EllipsePoolItem(current_items, "Acquisition",
                                     0, 0, app_config.epool_width, app_config.event_height,
@@ -1309,20 +1303,31 @@ def produce_events(events_dict, app_config):
 
         for event_type, event_list in events_dict.items():
             e_items = items_dict[event_type]
+
             pool_event_type = event_type + "_pools"
             if is_flat(event_list):
                 if event_type == "gains":
-                    event_list = [event for event in event_list if event not in events_dict["duplications"] and
+                    event_list = [event for event in event_list if
                                   event not in events_dict["contradictions"] and
-                                  event not in events_dict["double_gains"]]
+                                  event not in events_dict["duplications"] and
+                                  event not in events_dict["rearrangements"] and
+                                  event not in events_dict["double_gains"] and
+                                  event not in events_dict["independent_gains"] and
+                                    event not in events_dict["reacquisitions"] and
+                                    event not in events_dict["dups"]]
                 pools = produce_pooled_items(event_list, e_items, event_type, app_config)
                 items_dict[pool_event_type].append(pools)
             else:
                 for ix in range(len(event_list)):
                     if event_type == "gains":
-                        event_list = [event for event in event_list[ix] if event not in events_dict["duplications"] and
+                        event_list = [event for event in event_list[ix] if
                                       event not in events_dict["contradictions"] and
-                                      event not in events_dict["double_gains"]]
+                                      event not in events_dict["duplications"] and
+                                      event not in events_dict["rearrangements"] and
+                                      event not in events_dict["double_gains"] and
+                                      event not in events_dict["independent_gains"] and
+                                        event not in events_dict["reacquisitions"] and
+                                        event not in events_dict["dups"]]
                     pools = produce_pooled_items(event_list, e_items, event_type, app_config, ix)
                     items_dict[pool_event_type].append(pools)
 

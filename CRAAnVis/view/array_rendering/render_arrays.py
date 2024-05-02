@@ -85,7 +85,6 @@ class SpacerItem(HighlightManagingMixin, QGraphicsRectItem):
             self.setPos(self.restorable_pos)
             self.update()
 
-    # Override contextMenuEvent to show custom context menu
     def contextMenuEvent(self, event):
         if self.original_names:
             return
