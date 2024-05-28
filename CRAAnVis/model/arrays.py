@@ -77,7 +77,8 @@ def add_array_model(data, model_container):
     rec_spacers = data['rec_spacers']
     rec_spacers = rec_spacers['rec_spacers']
 
-    leaf_rec_spacers = {k: v for k, v in rec_spacers.items() if not k.startswith('Inner')}
+    leaf_node_names = model_container.tree.get_leaf_names()
+    leaf_rec_spacers = {k: v for k, v in rec_spacers.items() if k in leaf_node_names}
     array_names = list(leaf_rec_spacers.keys())
     number_of_arrays = len(array_names)
 

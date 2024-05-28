@@ -272,8 +272,6 @@ class CrAAnVisView(QMainWindow, Ui_MainWindow):
         self.ui.menuColor_By_Metadata.setEnabled(False)
 
         print("Clearing scene.")
-        print(f"self model is {self.model}")
-        print(f"self item groups are {self.item_groups}")
 
     def set_ui_vis_active(self):
         self.ui.actionExport_as_Pdf.setEnabled(True)

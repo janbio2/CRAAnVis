@@ -140,10 +140,10 @@ class TreeViewNode:
         name_leaf_tag = {}
         for node in self.traverse():
             if not app_config.show_inner_l_tags:
-                if node.name.startswith("Inner"):
+                if not node.is_leaf():
                     continue
             txt_to_display = str(node.name)
-            if node.name.startswith("Inner"):
+            if not node.is_leaf():
                 for child in node.c:
                     txt_to_display += "  " + str(child.name)
             text = QGraphicsSimpleTextItem(txt_to_display, node.qnode)
@@ -163,7 +163,7 @@ class TreeViewNode:
     def update_leaf_tag_pos(self, leaf_tags, app_config: AppConfig):
         for node in self.traverse():
             if not app_config.show_inner_l_tags:
-                if node.name.startswith("Inner"):
+                if not node.is_leaf():
                     continue
             tag_name = node.name
             tag_center_y = leaf_tags[tag_name].boundingRect().center().y()
@@ -182,6 +182,10 @@ class TreeViewNode:
             item.setBrush(color)
             item.setOpacity(0.2)
             item.setZValue(-1)
+
+    def is_leaf(self):
+        """Check if node is a leaf"""
+        return self.cs == 0
 
     def traverse(self):
         """Traverse tree levelorder based on ETE toolkit function"""

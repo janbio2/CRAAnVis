@@ -109,10 +109,13 @@ class TreeNode:
                     node.events['dups'] = data['other_events']['rec_other_dup_events_dict'][node.name]
 
 
-
     def is_leaf(self):
         """Check if node is leaf"""
         return len(self.children) == 0
+
+    def get_leaf_names(self):
+        """Get leaf names"""
+        return [node.name for node in self.traverse() if node.is_leaf()]
 
 
 def connect_names_to_spacer_models(name_list, name_element_dict):
