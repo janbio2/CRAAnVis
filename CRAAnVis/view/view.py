@@ -762,6 +762,13 @@ class CrAAnVisView(QMainWindow, Ui_MainWindow):
 
         self.reset_tags()
 
+        # adjust scene size
+        new_sc_width = right_array_end_x + 150
+        sc_rect = self.scene.sceneRect()
+        new_scene_rect = QRectF(sc_rect.x(), sc_rect.y(),
+                                new_sc_width, sc_rect.height())
+        self.scene.setSceneRect(new_scene_rect)
+
     def layout_scene(self, scene, item_groups):
         tree_nodes = self.item_groups["tree_nodes"]
         edges = self.item_groups["edge_group"]
