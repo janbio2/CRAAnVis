@@ -124,7 +124,7 @@ def print_to_pdf(view, file_path=None):
 
     printer.setFullPage(False)
 
-    bounding_rect = view.scene.itemsBoundingRect()
+    bounding_rect = view.scene.sceneRect()
     page_width = view.app_config.pdf_width
     page_height = bounding_rect.height() * (page_width / bounding_rect.width())
     size_unit = QPageSize.Unit.Point

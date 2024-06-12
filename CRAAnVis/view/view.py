@@ -742,7 +742,7 @@ class CrAAnVisView(QMainWindow, Ui_MainWindow):
         self.item_groups["array_background_lines"].setZValue(-1)
         self.scene.addItem(self.item_groups["array_background_lines"])
 
-        # # reallign tags
+        # reallign tags
         self.right_allign_tags(array_pos_x)
 
         # update event positions
@@ -761,13 +761,11 @@ class CrAAnVisView(QMainWindow, Ui_MainWindow):
                                                              right_array_end_x)
 
         self.reset_tags()
-
-        # adjust scene size
-        new_sc_width = right_array_end_x + 150
+        # self.scene.update()
         sc_rect = self.scene.sceneRect()
-        new_scene_rect = QRectF(sc_rect.x(), sc_rect.y(),
-                                new_sc_width, sc_rect.height())
-        self.scene.setSceneRect(new_scene_rect)
+        new_scene_width = self.item_groups["array_background_lines"].sceneBoundingRect().right() - sc_rect.x()
+        sc_rect.setWidth(new_scene_width)
+        self.scene.setSceneRect(sc_rect)
 
     def layout_scene(self, scene, item_groups):
         tree_nodes = self.item_groups["tree_nodes"]
