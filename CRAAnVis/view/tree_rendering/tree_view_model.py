@@ -90,6 +90,9 @@ class TreeViewNode:
 
     def __init__(self, root: TreeNode, tree_nodes: list, app_config: AppConfig):
 
+        self.parent = None
+        self.name = root.name
+
         self.c_switched = False
         self.needs_switching = False
         self.can_be_switched = True
@@ -104,16 +107,13 @@ class TreeViewNode:
         self.distance = root.distance
         # node envelope size
         self.width = app_config.t_dummy_node_width
-        self.extension_length = calc_event_extension_h(self, app_config)
+        self.extension_length = calc_event_extension_h_new(self, app_config)
         self.non_extension_len = 0
         self.height = 0
 
         # node positions/coordinates
         self.x = 0
         self.y = 0
-
-        self.parent = None
-        self.name = root.name
 
         self.qnode = NodeItem(self, root, app_config)
         tree_nodes.append(self.qnode)
@@ -780,6 +780,42 @@ def calc_event_extension_h(node: TreeViewNode, app_config: AppConfig):
     return height
 
 
+def calc_event_extension_h_new(node: TreeViewNode, app_config: AppConfig):
+    h_top_branch = 0
+    h_bottom_branch = 0
+
+    # first sum single events widths
+    for item_type, items in node.event_items_dict.items():
+        if item_type.endswith("_pools"):
+            continue
+
+        branch_pos = app_config.event_positions[item_type]
+        for item in flatten(items):
+            h = item.rect().width()
+            if branch_pos == "top-branch":
+                h_top_branch += h
+            else:
+                h_bottom_branch += h
+
+    # if pooling on sum pool widths and remove their single event widths
+    if app_config.event_pooling:
+        for item_type, items in node.event_items_dict.items():
+            if not item_type.endswith("_pools"):
+                continue
+
+            branch_pos = app_config.event_positions[item_type[:-6]]
+            for item in flatten(items):
+                h = item.width
+                for p_item in item.pooled_event_items:
+                    h -= p_item.rect().width()
+                if branch_pos == "top-branch":
+                    h_top_branch += h
+                else:
+                    h_bottom_branch += h
+    height = max(h_top_branch, h_bottom_branch) + app_config.t_edge_linewidth * 2
+    return height
+
+
 def count_items_pooled(nested_list):
     count_i, count_p = 0, 0
 
@@ -807,9 +843,11 @@ def count_pooled(lst):
         count_p = len(s)
         count_i = 0
         s_set = flatten_to_set(s)
+
         for i in lst:
             if i not in s_set:
                 count_i += 1
+
     return count_i, count_p
 
 
@@ -828,6 +866,7 @@ def pooled_ext(app_config, node):
     height_above_branch = 0
     events_exist_top_b = False
     events_exist_bottom_b = False
+
     for event, e_list in node.events.items():
         if (event == "duplications" or
                 event == "contradictions" or
@@ -864,6 +903,7 @@ def non_pooled_ext(app_config, node):
     height_above_branch = 0
     events_exist_top_b = False
     events_exist_bottom_b = False
+
     for event, e_list in node.events.items():
         if (event == "duplications" or
                 event == "contradictions" or

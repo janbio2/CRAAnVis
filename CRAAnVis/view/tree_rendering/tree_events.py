@@ -336,6 +336,9 @@ class EventHexagonItem(HighlightManagingMixin,
         self.color_group = None
         self.app_config.color_manager.register_item(self)
 
+    def rect(self):
+        return QRectF(self.x(), self.y(), self.width, self.height)
+
     def change_color(self):
         self.app_config.color_manager.set_new_rand_color(self.name, "spacer")
 
@@ -504,6 +507,7 @@ class EventPoolItem(QGraphicsItem):
         self.height = height
         self.x = x
         self.y = y
+        self.width = width
 
         # texttag
         self.font = app_config.event_font
@@ -1289,6 +1293,7 @@ def produce_events(events_dict, app_config):
         if is_flat(event_list):
             items = produce_event_items(event_list, event_type, app_config, events_dict)
             items_dict[event_type].append(items)
+
 
         else:
             for sub_list in event_list:
