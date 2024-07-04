@@ -1,7 +1,7 @@
 from PyQt6.QtCore import Qt, QSettings, QByteArray, QPoint
 from PyQt6.QtGui import QFont, QPen, QColor
 
-from view.colors.colors import TreeSignalManager
+from view.color.coloring import TreeSignalManager
 
 EVENT_WIDTH = 20
 SPACER_WIDTH = 36
@@ -62,8 +62,6 @@ class AppConfig:
         self.spacer_height = self.spacer_width
         self.spacer_font = QFont("Courier New", int(self.spacer_width / 2.8))
         self.bright_deleted_spacers = True
-
-        # self.x_between_crispr_elements = 41
 
         self.array_to_tree_margin = 20
         self.array_to_template_margin = 20

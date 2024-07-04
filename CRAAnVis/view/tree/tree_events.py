@@ -6,7 +6,7 @@ from PyQt6.QtWidgets import (QGraphicsEllipseItem, QGraphicsRectItem, QGraphicsS
                              QStyleOptionGraphicsItem, QGraphicsPolygonItem, QWidget, QGraphicsItem)
 
 from model.helper_functions import is_flat, find_incremental_series, adapt_font_to_width2
-from view.colors.highlighting import HighlightManagingMixin
+from view.color.highlighting import HighlightManagingMixin
 
 
 class EventEllipseItem(HighlightManagingMixin, QGraphicsEllipseItem):

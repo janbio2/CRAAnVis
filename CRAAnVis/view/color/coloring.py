@@ -8,10 +8,10 @@ from PyQt6.QtGui import QColor
 from PyQt6.QtWidgets import QColorDialog
 
 from model.model_container import ModelContainer
-from view.array_rendering.render_arrays import SpacerItem
-from view.colors.color_schemes import (C_2, C_3, C_4, C_5, C_6, C_7, C_8, C_10, C_13, C_15, C_21, C_23, C_26, C_35,
+from view.arrays.array_parts import SpacerItem
+from view.color.color_schemes import (C_2, C_3, C_4, C_5, C_6, C_7, C_8, C_10, C_13, C_15, C_21, C_23, C_26, C_35,
                                        C_41, C_62, C_97, C_139, C_230, C_470, C_1232)
-from view.legend.render_legend import prod_arr_legend_items
+from view.legend.legend import prod_arr_legend_items
 
 
 class ColorMapGenerator:
@@ -341,6 +341,7 @@ class ColorManager(QObject):
             map_name for map_name in self.color_maps.keys() if map_name not in ["single_color_mode", "two_color_mode"])
         return options_liste
 
+
     def initialize_color_map(self, map_name, c_map_type=None):
         self.color_maps[map_name] = {}
 
@@ -535,10 +536,10 @@ class ColorManager(QObject):
                         new_map[key] = (val1, val1)
                         is_single_color = True
 
-        name_conter = 2
+        name_counter = 2
         while new_map_name in self.color_maps:
-            new_map_name = f"{new_map_name}({name_conter})"
-            name_conter += 1
+            new_map_name = f"{new_map_name}({name_counter})"
+            name_counter += 1
         self.color_maps[new_map_name] = new_map
 
         self.cmap_single_c[new_map_name] = is_single_color

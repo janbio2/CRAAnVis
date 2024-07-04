@@ -4,7 +4,7 @@ from PyQt6.QtWidgets import QGraphicsEllipseItem, QGraphicsRectItem, QGraphicsSi
     QGraphicsItem
 
 from model.helper_functions import num_to_display_str
-from view.tree_rendering.tree_events import TwoColorHexagonItem
+from view.tree.tree_events import TwoColorHexagonItem
 
 
 class LegendsContainer:

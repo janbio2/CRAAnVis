@@ -5,7 +5,7 @@ from PyQt6.QtWidgets import QGraphicsRectItem, QMenu, QGraphicsItem, QGraphicsSi
 from model.arrays import get_node_by_name, gather_upstream_gains, gather_upstream_losses
 from model.helper_functions import adapt_font_to_width
 from model.model_container import ModelContainer
-from view.colors.highlighting import HighlightManagingMixin
+from view.color.highlighting import HighlightManagingMixin
 
 
 class SpacerItem(HighlightManagingMixin, QGraphicsRectItem):

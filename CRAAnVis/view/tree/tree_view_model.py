@@ -9,31 +9,66 @@ from PyQt6.QtWidgets import QGraphicsItemGroup, QGraphicsEllipseItem, QGraphicsS
 from model.app_config import AppConfig
 from model.helper_functions import is_flat, find_incremental_series, flatten
 from model.tree import TreeNode
-from view.colors.colors import produce_random_color
+from view.colors.coloring import produce_random_color
 from view.tree_rendering.adapted_biopython_tree_layouting import set_x_positions
 from view.tree_rendering.tree_events import produce_events, FrameItem, EventRectItem
 
 
-class NodeItem(QGraphicsEllipseItem):
-    """Class for the visual representation of a node in the tree view"""
-    def __init__(self, view_model_node, model_node: TreeNode, app_config: AppConfig):
+class TreeViewNode(QGraphicsEllipseItem):
+    """Class organising the visual representation of a tree node."""
+
+    def __init__(self, root: TreeNode, tree_nodes: list, app_config: AppConfig):
 
         super().__init__()
         self.app_config = app_config
-        self.model_node = model_node
-        self.view_model_node = view_model_node
-        self.setBrush(app_config.t_node_color)
+
+        self.parent = None
+        self.name = root.name
+
+        self.c_switched = False
+        self.needs_switching = False
+        self.can_be_switched = True
+        self.inner_array_is_shown = False
+        self.app_config.tree_signal_manager.show_inner_array.connect(self.notice_if_inner_array_is_shown)
+
+        self.c = []
+        self.cs = 0
+
+        self.events = []
+        self.events = root.events
+        self.event_items_dict = produce_events(root.events, app_config)
+
+        self.distance = root.distance
+        # node envelope size
+        self.width = app_config.t_dummy_node_width
+        self.extension_length = calc_event_extension_h_new(self, app_config)
+        self.non_extension_len = 0
+        self.height = 0
+
+        # node positions/coordinates
+        self.x = 0
+        self.y = 0
+
+        # TODO: replace the following
+        # self.qnode = NodeItem(self, root, app_config)
+        # tree_nodes.append(self.qnode)
+
+        # GraphicsItemFunctionality
+        self.setBrush(self.app_config.t_node_color)
         self.setRect(0, 0, app_config.t_node_width, app_config.t_node_height)
         self.setZValue(1)
 
-        self.inner_array_is_shown = False
-
-        # tooltip
-        tt_string = f"Node {self.model_node.name}"
+            # tooltip
+        tt_string = f"Node {self.name}"
         self.setToolTip(tt_string)
 
-        # connect to tree signal manager for checking action states
-        self.app_config.tree_signal_manager.show_inner_array.connect(self.notice_if_inner_array_is_shown)
+
+        for c in root.children:
+            new_child = TreeViewNode(c, tree_nodes, app_config)
+            new_child.parent = self
+            self.c.append(new_child)
+
+            self.cs += 1
 
     def notice_if_inner_array_is_shown(self, showing_node):
         if showing_node == self.model_node.name:
@@ -83,47 +118,6 @@ class NodeItem(QGraphicsEllipseItem):
             self.view_model_node.c_switched = True
         self.view_model_node.needs_switching = True
         self.app_config.tree_signal_manager.redrawTree.emit()
-
-
-class TreeViewNode:
-    """Class organising the visual representation of a tree node."""
-
-    def __init__(self, root: TreeNode, tree_nodes: list, app_config: AppConfig):
-
-        self.parent = None
-        self.name = root.name
-
-        self.c_switched = False
-        self.needs_switching = False
-        self.can_be_switched = True
-
-        self.c = []
-        self.cs = 0
-
-        self.events = []
-        self.events = root.events
-        self.event_items_dict = produce_events(root.events, app_config)
-
-        self.distance = root.distance
-        # node envelope size
-        self.width = app_config.t_dummy_node_width
-        self.extension_length = calc_event_extension_h_new(self, app_config)
-        self.non_extension_len = 0
-        self.height = 0
-
-        # node positions/coordinates
-        self.x = 0
-        self.y = 0
-
-        self.qnode = NodeItem(self, root, app_config)
-        tree_nodes.append(self.qnode)
-
-        for c in root.children:
-            new_child = TreeViewNode(c, tree_nodes, app_config)
-            new_child.parent = self
-            self.c.append(new_child)
-
-            self.cs += 1
 
     def group_and_position_events(self, app_config: AppConfig):
         events_group = QGraphicsItemGroup()
@@ -447,33 +441,37 @@ def group_node_events_and_set_pos(node: TreeViewNode, app_config: AppConfig):
     return event_group
 
 
-class TreeScalingContainer(QObject):
+class TreeView(QObject):
     def __init__(self, tree_view_model: TreeViewNode, array_length: float, app_config: AppConfig):
         super().__init__()
-        self.max_x = None
-        self.swapped_nodes = []
-        self.app_config = app_config
 
+        self.app_config = app_config
         self.tree_view_model = tree_view_model
+        self.tree_rect = None
+        self.tree_leaf_anchors = {}
+
+        # scaling related functionality
+        self.full_t_length = None
         self.array_length = array_length
         self.min_distance = find_min_distance(self.tree_view_model)
         self.leaf_dist_ext_dict = get_leaf_dist_ext(self.tree_view_model, [], [])
-
         self.best_x_scale_factor = optimize_scaling(self.leaf_dist_ext_dict,
                                                     self.min_distance,
                                                     app_config,
                                                     self.array_length)
         self.x_scale_factor = self.best_x_scale_factor
-
         if self.min_distance == 0:
             min_above_zero = find_min_above_zero_distance(self.tree_view_model)
             self.min_scale = get_maximal_scaling_without_size_increase(self.leaf_dist_ext_dict,
                                                                        app_config.min_leaf_dist / min_above_zero)
         else:
             self.min_scale = get_maximal_scaling_without_size_increase(self.leaf_dist_ext_dict,
-                                                                   app_config.min_leaf_dist / self.min_distance)
+                                                                       app_config.min_leaf_dist / self.min_distance)
 
         self.max_y = None
+
+        # node swapping related functionality
+        self.swapped_nodes = []
 
     def redraw_c_swapped(self):
         for node in self.tree_view_model.traverse():
@@ -486,6 +484,57 @@ class TreeScalingContainer(QObject):
         set_x_positions(self.tree_view_model, self.app_config)
         switch_x_y(self.tree_view_model)
         self.tree_view_model.set_node_positions()
+
+
+    def redraw_children_switched(self):
+        # delete old edges, bg_lines
+        self.scene.removeItem(self.item_groups["edge_group"])
+        old_obj = []
+        for item in self.item_groups["events_group"].childItems():
+            old_obj.append(item)
+            self.scene.removeItem(item)
+            self.item_groups["events_group"].removeFromGroup(item)
+        self.scene.removeItem(self.item_groups["events_group"])
+        for item in self.item_groups["array_background_lines"].childItems():
+            self.scene.removeItem(item)
+        self.item_groups["array_background_lines"] = QGraphicsItemGroup()
+
+        tree_container = self.item_groups["tree_container"]
+        tree_container.redraw_c_swapped()
+        tree_container.tree_view_model.set_node_positions()
+        # produce new edges
+        self.item_groups["edge_group"] = create_edges(tree_container.tree_view_model, self.app_config)
+        self.scene.addItem(self.item_groups["edge_group"])
+
+        # adjust tree node offset
+        for node_item in self.item_groups["tree_nodes"]:
+            node_item.moveBy(0.5, 0.5)
+
+        # reset tag positions
+        tree_container.tree_view_model.update_leaf_tag_pos(self.item_groups["names_tags"], self.app_config)
+        max_tag_x = 0
+        for item in self.item_groups["names_tags"].values():
+            max_tag_x = max(max_tag_x, item.sceneBoundingRect().right())
+        array_pos_x = max_tag_x + self.app_config.array_to_tree_margin
+        # # reallign arrays
+        right_array_end_x = self.place_arrays_in_scene(array_pos_x, self.item_groups, self.item_groups["names_tags"],
+                                                       add_to_scene=False)
+        self.store_current_sp_positions()
+
+        # # produce new bg_lines
+        self.item_groups["array_background_lines"] = QGraphicsItemGroup()
+        for name in self.item_groups["names_tags"].keys():
+            bg_line = self.produce_bg_line_from_unaligned_tag(name, self.item_groups["names_tags"], right_array_end_x)
+            self.item_groups["array_background_lines"].addToGroup(bg_line)
+        self.item_groups["array_background_lines"].setZValue(-1)
+        self.scene.addItem(self.item_groups["array_background_lines"])
+
+        # # reallign tags
+        self.right_allign_tags(array_pos_x)
+
+        # update event positions
+        self.item_groups["events_group"] = tree_container.tree_view_model.group_and_position_events(self.app_config)
+        self.scene.addItem(self.item_groups["events_group"])
 
     def swap_child_node(self, swap_target: TreeViewNode, current_node=None):
         if current_node is None:
@@ -502,15 +551,15 @@ class TreeScalingContainer(QObject):
 
     def rescale_x(self, factor):
         self.x_scale_factor = self.x_scale_factor * factor
-        self.max_x = reset_x_horizontal(self.tree_view_model, self.x_scale_factor, 0)
+        self.full_t_length = reset_x_horizontal(self.tree_view_model, self.x_scale_factor, 0)
 
     def reset_scaling(self):
         self.x_scale_factor = self.best_x_scale_factor
-        self.max_x = reset_x_horizontal(self.tree_view_model, self.x_scale_factor, 0)
+        self.full_t_length = reset_x_horizontal(self.tree_view_model, self.x_scale_factor, 0)
 
     def set_scaling_min(self):
         self.x_scale_factor = self.min_scale
-        self.max_x = reset_x_horizontal(self.tree_view_model, self.x_scale_factor, 0)
+        self.full_t_length = reset_x_horizontal(self.tree_view_model, self.x_scale_factor, 0)
 
 
 def find_min_distance(node: TreeViewNode, min_dist=float('inf')):
@@ -1049,7 +1098,7 @@ def draw_tree(root: TreeNode, array_length, app_config: AppConfig):
 
     tree_view_model = TreeViewNode(root, tree_nodes, app_config)
 
-    tree_container = TreeScalingContainer(tree_view_model, array_length, app_config)
+    tree_container = TreeView(tree_view_model, array_length, app_config)
     tree_container.preset_y("dynamic")
 
     set_x_positions(tree_container.tree_view_model, app_config)

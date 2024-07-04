@@ -18,7 +18,7 @@ class CRAAnVis:
         self.view = CrAAnVisView(self.app_config)
 
         if not headless_mode:
-            self.view.show_firsttime()
+            self.view.show_gui()
             self.app.exec()
         else:
             self.app.quit()

@@ -1,6 +1,5 @@
 from collections import deque
 from typing import Dict, List, Optional
-from model.helper_functions import is_flat
 
 
 def produce_tree_model(data):
@@ -74,9 +73,6 @@ class TreeNode:
     def parse_evolutionary_events(self, data):
         """get evolutionary events information and assign to nodes from data"""
 
-
-
-
         for node in self.traverse():
             if node.name in data['rec_gains_losses']['rec_gains'].keys():
                 node.events['gains'] = data['rec_gains_losses']['rec_gains'][node.name]
@@ -90,6 +86,7 @@ class TreeNode:
             if node.name in data['other_events']['rec_rearrangements_dict'].keys():
                 node.events['rearrangements'] = data['other_events']['rec_rearrangements_dict'][node.name]
 
+            # Todo: find a better way to handle this
             # decide which SpacerPlacer output data version is available
             old_categories = ["rec_double_gains_dict", "rec_default_or_indep_gains_dict"]
             new_categories = ["rec_reacquisition_dict", "rec_indep_gain_dict", "rec_other_dup_events_dict"]
@@ -108,18 +105,10 @@ class TreeNode:
                 if node.name in data['other_events']['rec_other_dup_events_dict'].keys():
                     node.events['dups'] = data['other_events']['rec_other_dup_events_dict'][node.name]
 
-
     def is_leaf(self):
-        """Check if node is leaf"""
+        """Check if node is a leaf"""
         return len(self.children) == 0
 
     def get_leaf_names(self):
         """Get leaf names"""
         return [node.name for node in self.traverse() if node.is_leaf()]
-
-
-def connect_names_to_spacer_models(name_list, name_element_dict):
-    if is_flat(name_list):
-        return [(name, name_element_dict[name]) for name in name_list]
-    else:
-        return [[(name, name_element_dict[name]) for name in sublist] for sublist in name_list]

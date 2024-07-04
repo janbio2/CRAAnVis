@@ -1,8 +1,9 @@
 from collections import Counter
 from typing import List, Tuple
 
-from model.arrays import ArrayData
+from model.arrays import ArrayData, find_duplicates, SpacerData, leaf_losses_dictionary
 from model.helper_functions import flatten
+from model.tree import produce_tree_model
 
 
 class ModelContainer:
@@ -30,6 +31,84 @@ class ModelContainer:
 
         # variables for tree_legend
         self.item_types_in_tree = None
+
+    def load_data(self, data):
+        """Load data"""
+        self.tree = produce_tree_model(data)
+        self.add_array_model(data)
+
+    def add_array_model(self, data):
+        """Add array model."""
+
+        top_order = data['top_order']
+        spacer_names_to_numbers = data['spacer_names_to_numbers']
+
+        sp_name_duplicates = find_duplicates(spacer_names_to_numbers)
+
+        rec_spacers = data['rec_spacers']
+        rec_spacers = rec_spacers['rec_spacers']
+
+        leaf_node_names = self.tree.get_leaf_names()
+        leaf_rec_spacers = {k: v for k, v in rec_spacers.items() if k in leaf_node_names}
+        array_names = list(leaf_rec_spacers.keys())
+        number_of_arrays = len(array_names)
+
+        if 'metadata' in data:
+            metadata = data['metadata']
+        else:
+            metadata = {}
+
+        # produce template array
+        array_length = len(top_order)
+        template_array = ArrayData("template")
+
+        for x in range(array_length):
+            original_name = str(top_order[x])
+            spacer_name = str(spacer_names_to_numbers[original_name])
+            duplicates = None
+            if spacer_name in sp_name_duplicates:
+                duplicates = sp_name_duplicates[spacer_name]
+
+            if spacer_name not in metadata:
+                metadata[spacer_name] = {}
+            spacer_metadata = metadata[spacer_name]
+            new_spacer_data = SpacerData(spacer_name, original_name, x, duplicates, spacer_metadata)
+            template_array.add_spacer(new_spacer_data)
+        self.add_template_array(template_array)
+
+        # produce all other arrays
+        array_names_losses = leaf_losses_dictionary(self.tree)
+
+        for x in range(len(array_names)):
+            new_array = []
+            new_array_name = array_names[x]
+            spacers_existing = leaf_rec_spacers[new_array_name]
+            names_of_deleted_spacers = array_names_losses[new_array_name]
+
+            for exists, spacer_data in zip(spacers_existing, self.template.spacers):
+                if exists == 1:
+                    new_array.append(1)
+                elif spacer_data.name in names_of_deleted_spacers:
+                    new_array.append("d")
+                else:
+                    new_array.append(0)
+
+            self.arrays_dict[new_array_name] = new_array
+
+        # add frequencies to template arrays
+        for x in range(array_length):
+            sp_count = 0
+            sp_d_count = 0
+
+            for array in self.arrays_dict.values():
+                if array[x] in [1, "d"]:
+                    sp_d_count += 1
+                    if array[x] == 1:
+                        sp_count += 1
+            self.template.spacers[x].metadata["sp_frequency"] = sp_count / number_of_arrays
+            self.template.spacers[x].metadata["sp_d_frequency"] = sp_d_count / number_of_arrays
+
+        # return model_container
 
     def get_item_types_in_tree(self):
         if self.item_types_in_tree:
@@ -64,6 +143,7 @@ class ModelContainer:
 
     def get_spacer_names(self) -> List[str]:
         """Return a list of all spacer names."""
+        print(self.template)
         spacer_names = [spacer.name for spacer in self.template.spacers]
         return spacer_names
 
