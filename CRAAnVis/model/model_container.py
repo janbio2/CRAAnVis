@@ -8,7 +8,9 @@ from model.helper_functions import flatten
 class ModelContainer:
     """Container class for organizing multiple SpacerArrays."""
 
-    def __init__(self, template: ArrayData = None, arrays: [] = None):
+    def __init__(self, template: ArrayData = None, arrays: [] = None,
+                 app_config=None):
+        self.app_config = app_config
         self.template = template
         self.arrays_dict = {}
         if arrays is None:
@@ -37,22 +39,23 @@ class ModelContainer:
         else:
             if not self.tree:
                 return set()
-            translation = {
-                'gains': 'Acquisitions',
-                'losses': 'Deletions',
-                'contradictions': 'Contradictions',
-                'duplications': 'Duplications',
-                'rearrangements': 'Rearrangements',
-                'double_gains': 'Reacquisition',
-                'independent_gains': 'Ind. acquisition',
-                'dups': 'Other Type of Dup. Insertion'
-            }
+            # translation = {
+            #     'gains': 'Acquisitions',
+            #     'losses': 'Deletions',
+            #     'contradictions': 'Contradictions',
+            #     'duplications': 'Duplications',
+            #     'rearrangements': 'Rearrangements',
+            #     'double_gains': 'Reacquisition',
+            #     'independent_gains': 'Ind. acquisition',
+            #     'dups': 'Other Type of Dup. Insertion'
+            # }
 
             self.item_types_in_tree = set()
             for node in self.tree.traverse():
                 for k, v in node.events.items():
                     if len(v) > 0:
-                        self.item_types_in_tree.add(translation[k])
+                        # self.item_types_in_tree.add(translation[k])
+                        self.item_types_in_tree.add(self.app_config.event_translations[k])
             return self.item_types_in_tree
 
     def add_template_array(self, template):

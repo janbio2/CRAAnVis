@@ -122,20 +122,35 @@ class AppConfig:
         self.event_color_dict = {
             "contradictions": QColor("orange"),
             "duplications": QColor("blue"),
+            "transfers": QColor("magenta"),
             "rearrangements": QColor("purple"),
             "double_gains": QColor("turquoise"),
             "independent_gains": QColor("brown"),
             "dups": QColor("gray"),
-            "reacquisitions": QColor("green"),
+            "reacquisitions": QColor("lime"),
         }
         self.event_name_dict = {
             "contradictions": "Contradiction",
             "duplications": "Duplication",
+            "transfers": "Transfer",
             "rearrangements": "Rearrangement",
             "double_gains": "Double Gain",
             "independent_gains": "Independent Gain",
             "dups": "Other Type of Dup. Insertion",
             "reacquisitions": "Reacquisition"
+        }
+        self.event_translations = {
+            'gains': 'Acquisitions',
+            'losses': 'Deletions',
+            'contradictions': 'Contradictions',
+            'duplications': 'Duplications',
+            'transfers': 'Transfers',
+            'rearrangements': 'Rearrangements',
+            'double_gains': 'Double Acquisitions',
+            'independent_gains': 'Ind. acquisition',
+            'dups': 'Other Type of Dup. Insertion',
+            # missing: reacquisitions,
+            'reacquisitions': 'Reacquisitions'
         }
         # Event Pooling
         self.event_pooling = True

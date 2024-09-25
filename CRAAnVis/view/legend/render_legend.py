@@ -332,8 +332,10 @@ def prod_tr_legend_items(app_config, itemtypes_in_tree):
         ("Deletions", QGraphicsRectItem, "red"),
         ("Contradictions", TwoColorHexagonItem, "orange"),
         ("Duplications", TwoColorHexagonItem, "blue"),
+        ("Transfers", TwoColorHexagonItem, "magenta"),
         ("Rearrangements", TwoColorHexagonItem, "purple"),
-        ("Reacquisition", TwoColorHexagonItem, "turquoise"),
+        ("Reacquisitions", TwoColorHexagonItem, "lime"),
+        ("Double Acquisitions", TwoColorHexagonItem, "turquoise"),
         ("Ind. acquisition", TwoColorHexagonItem, "brown"),
         ("Other Type of Dup. Insertion", TwoColorHexagonItem, "gray")
     ]

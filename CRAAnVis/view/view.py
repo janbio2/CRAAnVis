@@ -412,7 +412,7 @@ class CrAAnVisView(QMainWindow, Ui_MainWindow):
         self.setWindowTitle(self.app_config.window_title + " \"" + file_name + "\"")
         data = read_all_folder_data(folder_path)
 
-        self.model = ModelContainer()
+        self.model = ModelContainer(app_config=self.app_config)
         self.model.tree = produce_tree_model(data)
         self.model = add_array_model(data, self.model)
 
@@ -928,7 +928,7 @@ class CrAAnVisView(QMainWindow, Ui_MainWindow):
         file_name = input_folder_path.split("/")[-1]
         self.app_config.file_name = file_name
         data = read_all_folder_data(input_folder_path)
-        self.model = ModelContainer()
+        self.model = ModelContainer(app_config = self.app_config)
         self.model.tree = produce_tree_model(data)
         self.model = add_array_model(data, self.model)
         self.setup_color_manager()
