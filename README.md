@@ -1,4 +1,4 @@
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Project Status: Inactive – The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.](https://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/#inactive)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![made-with-PyQt6](https://img.shields.io/badge/Made%20with-PyQt6-2CDE85.svg)](https://www.riverbankcomputing.com/software/pyqt/intro)
 # CRISPR Array Ancestry Visualization (CRAAnVis) <img src="https://github.com/janbio2/CRAAnVis/blob/release/images/icon.png" style="height: 30px; width: auto; display: inline-block;"> 
